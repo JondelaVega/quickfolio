@@ -1,0 +1,32 @@
+/* Selectable themes and layouts. The default ("modern") is the base stylesheet itself;
+   each theme here overrides its tokens plus a few structural rules, scoped to
+   html[data-theme=…] so it beats :root and its dark media query on
+   specificity. Every theme sets every token that media query sets, so a dark
+   system setting never leaks into a light theme. Chart series pairs are
+   validated per surface with the dataviz palette validator; ring palettes are
+   the app's validated light and dark sets. Fonts are bundled from styles/fonts/. */
+
+/* Light themes use the light ring palette; dark ones the dark set (both validated). */
+html[data-theme='broadsheet'],
+html[data-theme='brutalist'],
+html[data-theme='zen'] {
+   --cat-1: #2a78d6;
+   --cat-2: #eb6834;
+   --cat-3: #1baf7a;
+   --cat-4: #eda100;
+   --cat-5: #e87ba4;
+   --cat-6: #008300;
+   --cat-other: #a3a8b0;
+   color-scheme: light;
+}
+html[data-theme='terminal'],
+html[data-theme='neon'] {
+   --cat-1: #3987e5;
+   --cat-2: #d95926;
+   --cat-3: #199e70;
+   --cat-4: #c98500;
+   --cat-5: #d55181;
+   --cat-6: #008300;
+   --cat-other: #5d636d;
+   color-scheme: dark;
+}

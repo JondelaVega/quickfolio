@@ -1,0 +1,158 @@
+/* ---------- theme & layout menu ---------- */
+
+.display-menu {
+   position: relative;
+   flex: none;
+}
+.display-menu > summary {
+   list-style: none;
+}
+.display-menu > summary::-webkit-details-marker {
+   display: none;
+}
+.display-menu[open] > summary {
+   background: var(--hover);
+}
+.display-panel {
+   position: absolute;
+   right: 0;
+   top: calc(100% + 8px);
+   z-index: 20;
+   width: 292px;
+   padding: 14px;
+   border: 1px solid var(--line-strong);
+   border-radius: 12px;
+   background: var(--card);
+   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+}
+.display-label {
+   font-size: 12px;
+   font-weight: 600;
+   color: var(--muted);
+}
+.display-label + .theme-grid,
+.display-label + .segmented {
+   margin-bottom: 6px;
+}
+.theme-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 8px;
+}
+.theme-choice {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+   padding: 6px;
+   border: 1px solid var(--line);
+   border-radius: 9px;
+   background: transparent;
+   color: var(--fg-2);
+   font: inherit;
+   font-size: 12px;
+   cursor: pointer;
+   text-align: left;
+}
+.theme-choice:hover {
+   background: var(--hover);
+}
+.theme-choice[aria-pressed='true'] {
+   border-color: var(--accent);
+   box-shadow: 0 0 0 1px var(--accent);
+   color: var(--fg);
+   font-weight: 600;
+}
+/* A miniature of the theme: its page, a card on it, and its accent and chart colours. */
+.swatch-preview {
+   display: block;
+   height: 34px;
+   border-radius: 5px;
+   position: relative;
+   overflow: hidden;
+   border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.swatch-preview i {
+   position: absolute;
+   display: block;
+}
+.swatch-preview .sw-card {
+   left: 6px;
+   top: 6px;
+   right: 6px;
+   bottom: 6px;
+   border-radius: 3px;
+}
+.swatch-preview .sw-line {
+   left: 11px;
+   right: 11px;
+   top: 14px;
+   height: 2px;
+}
+.swatch-preview .sw-line2 {
+   left: 11px;
+   right: 24px;
+   top: 20px;
+   height: 2px;
+}
+.display-panel .segmented {
+   align-self: flex-start;
+}
+.display-switch {
+   display: flex;
+   align-items: flex-start;
+   gap: 10px;
+   margin-top: 6px;
+   padding-top: 12px;
+   border-top: 1px solid var(--line);
+   font-size: 13px;
+   cursor: pointer;
+}
+.display-switch input {
+   margin: 2px 0 0;
+   width: 16px;
+   height: 16px;
+   accent-color: var(--accent);
+   flex: none;
+}
+.display-switch > span {
+   display: flex;
+   flex-direction: column;
+   gap: 2px;
+}
+.display-switch .muted {
+   font-size: 12px;
+}
+/* While amounts are hidden the menu button says so, even with the menu closed. */
+html[data-amounts-hidden] .display-menu > summary {
+   color: var(--accent);
+   border-color: var(--accent);
+}
+
+main {
+   padding-top: 24px;
+   padding-bottom: 64px;
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+}
+
+.card {
+   background: var(--card);
+   border: 1px solid var(--line);
+   border-radius: var(--radius);
+   box-shadow: var(--shadow);
+   padding: 18px 20px;
+}
+.card-header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 12px;
+   margin-bottom: 12px;
+}
+.section-title {
+   margin: 24px 0 8px;
+}

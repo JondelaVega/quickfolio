@@ -1,0 +1,86 @@
+/* ============ 3. Neon — flashy glass ============ */
+
+html[data-theme='neon'] {
+   --plane: #0d0718;
+   --card: #1c1233;
+   --fg: #f5f0ff;
+   --fg-2: #d6ccf0;
+   --muted: #a397c4;
+   --line: rgba(255, 255, 255, 0.1);
+   --line-strong: rgba(255, 255, 255, 0.18);
+   --hover: rgba(255, 255, 255, 0.06);
+   --accent: #c084fc;
+   --accent-fg: #12051f;
+   --accent-soft: rgba(192, 132, 252, 0.18);
+   --pos: #34d399;
+   --pos-soft: rgba(52, 211, 153, 0.15);
+   --neg: #ff6b6b;
+   --neg-soft: rgba(255, 107, 107, 0.15);
+   --warn: #fbbf24;
+   --warn-soft: rgba(251, 191, 36, 0.12);
+   --shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+   --series-value: #0ea5c6;
+   --series-cost: #d9468f;
+   --radius: 22px;
+   font-family: 'Inter', system-ui, sans-serif;
+}
+html[data-theme='neon'] body {
+   background:
+      radial-gradient(900px 520px at 8% -8%, rgba(147, 51, 234, 0.45), transparent 60%),
+      radial-gradient(800px 480px at 100% 10%, rgba(14, 165, 198, 0.3), transparent 60%),
+      radial-gradient(700px 500px at 50% 110%, rgba(217, 70, 143, 0.25), transparent 60%), var(--plane);
+   background-attachment: fixed;
+}
+html[data-theme='neon'] .card,
+html[data-theme='neon'] .tile {
+   background: rgba(28, 18, 51, 0.55);
+   backdrop-filter: blur(16px) saturate(140%);
+   border: 1px solid rgba(255, 255, 255, 0.12);
+}
+html[data-theme='neon'] .tile-hero {
+   background: linear-gradient(140deg, rgba(147, 51, 234, 0.35), rgba(14, 165, 198, 0.2));
+}
+html[data-theme='neon'] .hero-value {
+   font-size: 46px;
+   font-weight: 600;
+   background: linear-gradient(90deg, #f0abfc, #67e8f9);
+   -webkit-background-clip: text;
+   background-clip: text;
+   color: transparent;
+}
+html[data-theme='neon'] .trend-line.trend-value {
+   filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.8));
+   stroke-width: 2.5;
+}
+html[data-theme='neon'] .trend-line.trend-cost {
+   filter: drop-shadow(0 0 5px rgba(217, 70, 143, 0.7));
+}
+html[data-theme='neon'] .alloc-seg {
+   filter: drop-shadow(0 0 8px color-mix(in srgb, var(--c) 60%, transparent));
+}
+html[data-theme='neon'] .brand-mark {
+   background: conic-gradient(from 200deg, #f0abfc, #67e8f9, #c084fc, #f0abfc);
+   border-radius: 50%;
+   box-shadow: 0 0 14px #c084fc;
+}
+html[data-theme='neon'] .topbar {
+   background: rgba(13, 7, 24, 0.5);
+}
+html[data-theme='neon'] .btn-primary {
+   background: linear-gradient(90deg, #c084fc, #22d3ee);
+   border: 0;
+   box-shadow: 0 0 18px rgba(192, 132, 252, 0.5);
+}
+html[data-theme='neon'] .segmented button.selected {
+   background: linear-gradient(90deg, #c084fc, #67e8f9);
+   color: #12051f;
+}
+html[data-theme='neon'] .mono {
+   background: linear-gradient(140deg, #9333ea, #0ea5c6);
+   color: #fff;
+   border-radius: 50%;
+}
+html[data-theme='neon'] .meter span {
+   background: linear-gradient(90deg, #c084fc, #22d3ee);
+   box-shadow: 0 0 6px #22d3ee;
+}

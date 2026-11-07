@@ -1,0 +1,99 @@
+/* ============ 5. Zen — calm and minimal ============ */
+
+html[data-theme='zen'] {
+   --plane: #fbfaf7;
+   --card: #fbfaf7;
+   --fg: #2b2d2a;
+   --fg-2: #555851;
+   --muted: #8a8c85;
+   --line: #ebe9e3;
+   --line-strong: #dcd9d1;
+   --hover: #f3f1ec;
+   --accent: #5b7f6a;
+   --accent-soft: rgba(91, 127, 106, 0.12);
+   --pos: #3f7a53;
+   --pos-soft: transparent;
+   --neg: #a8503f;
+   --neg-soft: transparent;
+   --warn: #8a5a1f;
+   --warn-soft: #f4ecdc;
+   --accent-fg: #ffffff;
+   --shadow: none;
+   --series-value: #3a6cb8;
+   --series-cost: #c07a4d;
+   --radius: 0;
+   font-family: 'Inter', system-ui, sans-serif;
+}
+html[data-theme='zen'] main {
+   gap: 40px;
+   padding-top: 48px;
+}
+html[data-theme='zen'] .card,
+html[data-theme='zen'] .tile {
+   border: 0;
+   background: transparent;
+   padding: 0;
+}
+html[data-theme='zen'] .kpis {
+   grid-template-columns: 2fr repeat(3, 1fr);
+   gap: 32px;
+   align-items: end;
+}
+html[data-theme='zen'] .hero-value {
+   font-size: 64px;
+   font-weight: 300;
+   letter-spacing: -0.04em;
+}
+html[data-theme='zen'] .tile-value {
+   font-weight: 300;
+   font-size: 30px;
+}
+html[data-theme='zen'] .tile-label,
+html[data-theme='zen'] h2 {
+   font-weight: 400;
+   color: var(--muted);
+   font-size: 13px;
+   letter-spacing: 0.02em;
+}
+html[data-theme='zen'] .pill {
+   padding: 0;
+}
+html[data-theme='zen'] .chip {
+   border: 0;
+   background: transparent;
+   padding: 0 6px 0 0;
+}
+html[data-theme='zen'] .topbar {
+   background: transparent;
+   border: 0;
+   backdrop-filter: none;
+}
+html[data-theme='zen'] .brand {
+   font-weight: 400;
+   letter-spacing: 0.04em;
+}
+html[data-theme='zen'] .brand-mark {
+   width: 10px;
+   height: 10px;
+   border-radius: 50%;
+   background: var(--accent);
+}
+html[data-theme='zen'] .mono {
+   display: none;
+}
+html[data-theme='zen'] th {
+   font-weight: 400;
+}
+html[data-theme='zen'] tbody tr:hover td {
+   background: transparent;
+}
+html[data-theme='zen'] details#manage {
+   border-top: 1px solid var(--line);
+   padding-top: 20px;
+}
+
+/* Zen removes card padding, so the table's bleed margins must go too. */
+html[data-theme='zen'] .table-wrap {
+   margin: 0;
+   padding: 0;
+}

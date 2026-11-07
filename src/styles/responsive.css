@@ -1,0 +1,57 @@
+/* ---------- narrow screens ---------- */
+
+@media (max-width: 860px) {
+   .kpis {
+      grid-template-columns: 1fr 1fr;
+   }
+   .tile-hero {
+      grid-column: 1 / -1;
+   }
+   /* Hero spans the top row; the third small tile would otherwise sit alone in half a row. */
+   .kpis .tile:nth-child(4) {
+      grid-column: 1 / -1;
+   }
+   .manage-grid {
+      grid-template-columns: 1fr;
+   }
+   /* minmax(0, …): a plain 1fr grows to its widest child instead of the viewport. */
+   .charts {
+      grid-template-columns: minmax(0, 1fr);
+   }
+}
+@media (max-width: 520px) {
+   .topbar-inner,
+   main {
+      padding-left: 16px;
+      padding-right: 16px;
+   }
+   .card {
+      padding: 16px;
+   }
+   .table-wrap {
+      margin: 0 -16px;
+      padding: 0 16px;
+   }
+   .kpis {
+      gap: 10px;
+   }
+   .hero-value {
+      font-size: 34px;
+   }
+   .tile-value {
+      font-size: 22px;
+   }
+   .status-text {
+      display: none;
+   }
+   /* Six range presets don't fit beside the title: give them their own full-width row. */
+   #trend .card-header {
+      flex-wrap: wrap;
+   }
+   #trend .segmented {
+      width: 100%;
+   }
+   #trend .segmented button {
+      flex: 1;
+   }
+}

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <!--
+      Scripts only from this origin and never inline, so injected markup cannot run code; requests,
+      images and fonts only to this origin, so nothing can be sent elsewhere.
+      Styles allow inline: Vite injects them in development, and charts set style attributes.
+      This is the built app's policy; the dev server adds what only it needs (see vite.config.ts).
+    -->
+      <meta
+         http-equiv="Content-Security-Policy"
+         content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'"
+      />
+      <title>QuickFolio</title>
+      <script src="/theme-boot.js"></script>
+   </head>
+   <body>
+      <header class="topbar">
+         <div class="topbar-inner">
+            <div class="brand"><span class="brand-mark" aria-hidden="true"></span>QuickFolio</div>
+            <div class="topbar-actions">
+               <div id="status" class="status"></div>
+               <details id="display" class="display-menu">
+                  <summary class="btn btn-icon" aria-label="Theme and layout" title="Theme and layout">◐</summary>
+                  <div class="display-panel">
+                     <div class="display-label" id="theme-label">Theme</div>
+                     <div class="theme-grid" id="themes" role="group" aria-labelledby="theme-label"></div>
+                     <div class="display-label" id="layout-label">Holdings layout</div>
+                     <div class="segmented" id="layouts" role="group" aria-labelledby="layout-label">
+                        <button type="button" data-layout-choice="table">Table</button>
+                        <button type="button" data-layout-choice="cards">Cards</button>
+                     </div>
+                     <label class="display-switch">
+                        <input type="checkbox" id="hide-amounts" role="switch" />
+                        <span>
+                           <b>Hide amounts</b>
+                           <span class="muted">Only percentages, for sharing screenshots</span>
+                        </span>
+                     </label>
+                  </div>
+               </details>
+            </div>
+         </div>
+      </header>
+
+      <main>
+         <div id="viewbar" class="viewbar" hidden></div>
+         <section id="summary"></section>
+         <div class="charts">
+            <section id="trend" class="card"></section>
+            <section id="allocation" class="card"></section>
+         </div>
+         <section id="holdings" class="card"></section>
+         <section id="realized" class="card" hidden></section>
+
+         <details id="manage" class="card" open>
+            <summary class="card-header">
+               <h2>Trades &amp; cash</h2>
+               <span class="chevron" aria-hidden="true"></span>
+            </summary>
+
+            <div class="manage-grid">
+               <form id="lot-form" class="panel" autocomplete="off">
+                  <div class="panel-head">
+                     <h3 id="lot-form-title">Add trade</h3>
+                     <div class="segmented" role="group" aria-label="Trade type">
+                        <button type="button" data-side="buy">Buy</button>
+                        <button type="button" data-side="sell">Sell</button>
+                     </div>
+                  </div>
+                  <div class="fields">
+                     <label>
+                        Symbol
+                        <input name="symbol" required placeholder="AAPL, NOKIA.HE, ASML.AS" />
+                     </label>
+                     <label>
+                        Trade date
+                        <input name="date" type="date" required />
+                     </label>
+                     <label>
+                        Units
+                        <input name="quantity" placeholder=" " type="number" step="any" min="0" required />
+                     </label>
+                     <label>
+                        <span id="price-label">Price per unit</span>
+                        <input name="unitPrice" type="number" step="any" min="0" required />
+                     </label>
+                     <label>
+                        <span id="settled-label">Total paid, excl. fees</span>
+                        <span class="input-pair">
+                           <input name="settled" placeholder=" " type="number" step="any" min="0" required />
+                           <select name="settledIn" aria-label="Currency settled in">
+                              <option>EUR</option>
+                              <option>USD</option>
+                           </select>
+                        </span>
+                     </label>
+                     <label>
+                        Fees
+                        <span class="input-pair">
+                           <input name="fees" placeholder=" " type="number" step="any" min="0" value="0" />
+                           <select name="feeCurrency" aria-label="Fee currency">
+                              <option>USD</option>
+                              <option>EUR</option>
+                           </select>
+                        </span>
+                     </label>
+                  </div>
+                  <p class="preview" id="lot-preview" hidden></p>
+                  <p class="hint" id="lot-status"></p>
+                  <div class="actions">
+                     <button type="submit" class="btn btn-primary" id="lot-submit">Save purchase</button>
+                     <button type="button" class="btn" id="lot-cancel" hidden>Cancel</button>
+                  </div>
+               </form>
+
+               <div class="side">
+                  <form id="cash-form" class="panel" autocomplete="off">
+                     <h3>Cash balance</h3>
+                     <div class="fields">
+                        <label>
+                           Amount in EUR
+                           <input name="amount" type="number" step="any" required />
+                        </label>
+                     </div>
+                     <p class="hint">Replaces the current balance; 0 removes it.</p>
+                     <div class="actions"><button type="submit" class="btn btn-primary">Set balance</button></div>
+                  </form>
+
+                  <div class="panel">
+                     <h3>Backup</h3>
+                     <p class="hint">
+                        Trades, cash and history live only in this browser. The export also lists every trade's value in USD and EUR and
+                        each sale's realized gain.
+                     </p>
+                     <div class="actions">
+                        <button type="button" class="btn" id="export">Export JSON</button>
+                        <label class="btn">
+                           Import JSON
+                           <input type="file" id="import" accept="application/json" hidden />
+                        </label>
+                     </div>
+                     <p class="hint" id="backup-status" hidden></p>
+                  </div>
+               </div>
+            </div>
+
+            <div id="lots"></div>
+         </details>
+      </main>
+      <script type="module" src="/src/main.ts"></script>
+   </body>
+</html>

@@ -1,0 +1,120 @@
+/* ============ 4. Brutalist — loud and blocky ============ */
+
+html[data-theme='brutalist'] {
+   --plane: #f3efe4;
+   --card: #ffffff;
+   --fg: #000000;
+   --fg-2: #111111;
+   --muted: #444444;
+   --line: #000000;
+   --line-strong: #000000;
+   --hover: #fff3a8;
+   --accent: #000000;
+   --accent-fg: #ffd400;
+   --accent-soft: #ffd400;
+   --pos: #006b2b;
+   --pos-soft: #b9f5c9;
+   --neg: #c40000;
+   --neg-soft: #ffc9c9;
+   --warn: #7a4a00;
+   --warn-soft: #ffe8a3;
+   --shadow: 6px 6px 0 #000;
+   --series-value: #1f4fff;
+   --series-cost: #ff4d00;
+   --radius: 0;
+   font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+html[data-theme='brutalist'] .card,
+html[data-theme='brutalist'] .tile {
+   border: 3px solid #000;
+}
+html[data-theme='brutalist'] .tile-hero {
+   background: #ffd400;
+}
+html[data-theme='brutalist'] .hero-value {
+   font-size: 52px;
+   font-weight: 700;
+   letter-spacing: -0.04em;
+}
+html[data-theme='brutalist'] h2 {
+   font-size: 22px;
+   font-weight: 700;
+   text-transform: uppercase;
+   letter-spacing: -0.01em;
+}
+html[data-theme='brutalist'] .tile-label {
+   text-transform: uppercase;
+   font-weight: 700;
+   color: #000;
+   letter-spacing: 0.04em;
+}
+html[data-theme='brutalist'] .btn,
+html[data-theme='brutalist'] .chip,
+html[data-theme='brutalist'] .pill {
+   border: 2px solid #000;
+   border-radius: 0;
+   box-shadow: 3px 3px 0 #000;
+}
+html[data-theme='brutalist'] .segmented {
+   border: 2px solid #000;
+   border-radius: 0;
+   background: #fff;
+   padding: 0;
+}
+html[data-theme='brutalist'] .segmented button {
+   border-radius: 0;
+   color: #000;
+}
+html[data-theme='brutalist'] .segmented button.selected {
+   background: #000;
+   color: #ffd400;
+   box-shadow: none;
+}
+html[data-theme='brutalist'] .mono {
+   background: #000;
+   color: #ffd400;
+   border-radius: 0;
+}
+html[data-theme='brutalist'] th {
+   color: #000;
+   font-weight: 700;
+   text-transform: uppercase;
+   border-bottom: 3px solid #000;
+}
+html[data-theme='brutalist'] tbody tr + tr td {
+   border-top: 2px solid #000;
+}
+html[data-theme='brutalist'] .topbar {
+   background: #ffd400;
+   border-bottom: 3px solid #000;
+}
+html[data-theme='brutalist'] .brand {
+   font-size: 20px;
+   text-transform: uppercase;
+}
+html[data-theme='brutalist'] .brand-mark {
+   background: #000;
+   border-radius: 0;
+   transform: rotate(45deg) scale(0.8);
+}
+html[data-theme='brutalist'] .meter {
+   background: #fff;
+   border: 1px solid #000;
+   border-radius: 0;
+   height: 6px;
+}
+html[data-theme='brutalist'] .meter span {
+   background: #000;
+   border-radius: 0;
+}
+
+@media (max-width: 520px) {
+   /* Big uppercase logo type would push the top-bar controls off a 360px screen. */
+   html[data-theme='brutalist'] .brand {
+      font-size: 16px;
+   }
+   html[data-theme='brutalist'] .btn,
+   html[data-theme='brutalist'] .segmented {
+      box-shadow: none;
+   }
+}

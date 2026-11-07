@@ -1,0 +1,132 @@
+/* ---------- manage section ---------- */
+
+details#manage > summary {
+   list-style: none;
+   cursor: pointer;
+   margin: 0;
+}
+details#manage > summary::-webkit-details-marker {
+   display: none;
+}
+details#manage[open] > summary {
+   margin-bottom: 16px;
+}
+.chevron {
+   width: 9px;
+   height: 9px;
+   border-right: 2px solid var(--muted);
+   border-bottom: 2px solid var(--muted);
+   transform: rotate(45deg);
+   transition: transform 0.15s;
+   margin-right: 4px;
+}
+details#manage[open] .chevron {
+   transform: rotate(-135deg);
+}
+
+.manage-grid {
+   display: grid;
+   grid-template-columns: 2fr 1fr;
+   gap: 16px;
+   align-items: start;
+}
+.side {
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+}
+.panel {
+   border: 1px solid var(--line);
+   border-radius: 12px;
+   padding: 16px;
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+}
+.fields {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+   gap: 12px;
+}
+.panel label:not(.btn) {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+   font-size: 12px;
+   font-weight: 500;
+   color: var(--fg-2);
+}
+.panel input,
+.panel select {
+   height: 36px;
+   width: 100%;
+   padding: 0 10px;
+   border: 1px solid var(--line-strong);
+   border-radius: 9px;
+   background: var(--card);
+   color: var(--fg);
+   font: inherit;
+   font-size: 14px;
+}
+.panel input:focus,
+.panel select:focus {
+   outline: none;
+   border-color: var(--accent);
+   box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.input-pair {
+   display: flex;
+   gap: 6px;
+}
+.input-pair input {
+   flex: 1;
+   min-width: 0;
+}
+.input-pair select {
+   width: 76px;
+   flex: none;
+}
+.preview {
+   margin: 0;
+   padding: 8px 12px;
+   border-radius: 9px;
+   background: var(--hover);
+   font-size: 13px;
+   color: var(--fg-2);
+   font-variant-numeric: tabular-nums;
+   line-height: 1.5;
+}
+.hint {
+   margin: 0;
+   font-size: 12px;
+   color: var(--muted);
+   line-height: 1.5;
+}
+.hint.error {
+   color: var(--neg);
+}
+.actions {
+   display: flex;
+   gap: 8px;
+   flex-wrap: wrap;
+}
+
+/* While amounts are hidden, a typed or recorded amount shows as a fixed ••• like every other hidden
+   amount, so not even its length gives the size away; the price per unit stays, like every per-share
+   figure. The value is still there and editable; its glyphs, caret and selection are transparent, as
+   their position would give the length away.
+   :placeholder-shown leaves empty fields blank; their placeholder is a single space for that reason. */
+html[data-amounts-hidden]
+   :is(#lot-form, #cash-form)
+   :is([name='quantity'], [name='settled'], [name='fees'], [name='amount']):not(:placeholder-shown) {
+   color: transparent;
+   caret-color: transparent;
+   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8'%3E%3Cg fill='%238a8f98'%3E%3Ccircle cx='3' cy='4' r='2'/%3E%3Ccircle cx='12' cy='4' r='2'/%3E%3Ccircle cx='21' cy='4' r='2'/%3E%3C/g%3E%3C/svg%3E");
+   background-repeat: no-repeat;
+   background-position: 11px center;
+}
+html[data-amounts-hidden]
+   :is(#lot-form, #cash-form)
+   :is([name='quantity'], [name='settled'], [name='fees'], [name='amount'])::selection {
+   background: transparent;
+}

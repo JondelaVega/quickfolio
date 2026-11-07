@@ -1,0 +1,77 @@
+/* ============ 1. Broadsheet — classic financial newspaper ============ */
+
+html[data-theme='broadsheet'] {
+   --plane: #fff1e5;
+   --card: #fff7ef;
+   --fg: #33302e;
+   --fg-2: #4d4845;
+   --muted: #736c66;
+   --line: #e6d9ce;
+   --line-strong: #ccc1b7;
+   --hover: #f9e7d8;
+   --accent: #990f3d;
+   --accent-soft: rgba(153, 15, 61, 0.1);
+   --pos: #0b6e3a;
+   --pos-soft: rgba(11, 110, 58, 0.1);
+   --neg: #b3201f;
+   --neg-soft: rgba(179, 32, 31, 0.09);
+   --warn: #8a5300;
+   --warn-soft: #fbe3c4;
+   --accent-fg: #ffffff;
+   --shadow: none;
+   --series-value: #0f8ba0;
+   --series-cost: #9e1a48;
+   --radius: 2px;
+   font-family: Georgia, 'Times New Roman', serif;
+}
+html[data-theme='broadsheet'] h2,
+html[data-theme='broadsheet'] .brand,
+html[data-theme='broadsheet'] .hero-value,
+html[data-theme='broadsheet'] .tile-value {
+   font-family: 'Fraunces', Georgia, serif;
+   font-weight: 600;
+   letter-spacing: 0;
+}
+html[data-theme='broadsheet'] h2 {
+   font-size: 19px;
+}
+html[data-theme='broadsheet'] .card,
+html[data-theme='broadsheet'] .tile {
+   border: 0;
+   border-top: 3px solid var(--fg);
+   background: transparent;
+   padding-left: 0;
+   padding-right: 0;
+}
+html[data-theme='broadsheet'] .card-header {
+   border-bottom: 1px solid var(--line-strong);
+   padding-bottom: 8px;
+}
+html[data-theme='broadsheet'] .tile-label {
+   text-transform: uppercase;
+   letter-spacing: 0.08em;
+   font-size: 11px;
+   font-family: system-ui, sans-serif;
+}
+html[data-theme='broadsheet'] th {
+   font-family: system-ui, sans-serif;
+   text-transform: uppercase;
+   letter-spacing: 0.06em;
+   font-size: 10.5px;
+}
+html[data-theme='broadsheet'] .brand-mark {
+   background: var(--accent);
+   border-radius: 0;
+}
+html[data-theme='broadsheet'] .pill,
+html[data-theme='broadsheet'] .chip {
+   border-radius: 2px;
+}
+html[data-theme='broadsheet'] .mono {
+   border-radius: 2px;
+   background: var(--fg);
+   color: var(--plane);
+}
+html[data-theme='broadsheet'] .topbar {
+   border-bottom: 3px double var(--fg);
+}

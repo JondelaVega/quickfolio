@@ -1,0 +1,27 @@
+# Dependencies and build output: recreated by `npm ci` and `npm run build`.
+# package-lock.json is NOT ignored: commit it, so installs are reproducible.
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Your own data. Exports hold the complete trade history; keep them out of the repo
+# even if you save one into the project folder.
+quickfolio-*.json
+
+# Secrets, should any ever be added.
+.env
+.env.*
+
+# Logs.
+*.log
+npm-debug.log*
+
+# OS and editor clutter.
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+
+# Claude Code's per-machine settings.
+.claude/settings.local.json

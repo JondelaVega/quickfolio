@@ -1,0 +1,146 @@
+/* ---------- banner ---------- */
+
+.banner {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+   align-items: flex-start;
+   margin-bottom: 16px;
+   padding: 10px 14px;
+   border-radius: 10px;
+   background: var(--warn-soft);
+   color: var(--warn);
+   font-size: 13px;
+   line-height: 1.5;
+}
+.banner-icon {
+   flex: none;
+   width: 18px;
+   height: 18px;
+   border-radius: 50%;
+   background: var(--warn);
+   color: var(--card);
+   font-weight: 700;
+   font-size: 12px;
+   display: grid;
+   place-items: center;
+   margin-top: 1px;
+}
+/* The text takes the row; where it would get too narrow, the button moves below it. */
+.banner > div {
+   flex: 1 1 18em;
+}
+.banner .btn {
+   flex: none;
+   margin-left: auto;
+}
+
+/* ---------- KPI tiles ---------- */
+
+.kpis {
+   display: grid;
+   grid-template-columns: 1.6fr repeat(3, 1fr);
+   gap: 16px;
+}
+.tile {
+   background: var(--card);
+   border: 1px solid var(--line);
+   border-radius: var(--radius);
+   box-shadow: var(--shadow);
+   padding: 16px 18px;
+   display: flex;
+   flex-direction: column;
+   gap: 6px;
+   min-width: 0;
+}
+.tile-label {
+   font-size: 13px;
+   color: var(--muted);
+   font-weight: 500;
+}
+/* Large standalone figures keep proportional digits; tabular is for columns. */
+.hero-value {
+   font-size: 40px;
+   font-weight: 650;
+   letter-spacing: -0.02em;
+   line-height: 1.1;
+}
+.hero-alt {
+   font-size: 15px;
+   font-weight: 500;
+   color: var(--fg-2);
+}
+.tile-value {
+   font-size: 26px;
+   font-weight: 650;
+   letter-spacing: -0.01em;
+   line-height: 1.2;
+}
+.tile-row {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   font-size: 13px;
+}
+.tile-foot {
+   margin-top: auto;
+   padding-top: 4px;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 4px 16px;
+   font-size: 13px;
+   color: var(--muted);
+}
+.tile-foot b {
+   color: var(--fg-2);
+}
+
+.pill {
+   display: inline-flex;
+   align-items: center;
+   padding: 2px 9px;
+   border-radius: 999px;
+   font-size: 13px;
+   font-weight: 600;
+   font-variant-numeric: tabular-nums;
+}
+.pill.pos {
+   background: var(--pos-soft);
+}
+.pill.neg {
+   background: var(--neg-soft);
+}
+.pill.flat {
+   background: var(--hover);
+   color: var(--fg-2);
+}
+
+.chips {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px 20px;
+   margin-top: 14px;
+}
+.chip-group {
+   display: flex;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 6px;
+}
+.chip-label {
+   font-size: 12px;
+   color: var(--muted);
+   margin-right: 2px;
+}
+.chip {
+   padding: 3px 10px;
+   border-radius: 999px;
+   border: 1px solid var(--line);
+   background: var(--card);
+   font-size: 12px;
+   color: var(--fg-2);
+   font-variant-numeric: tabular-nums;
+}
+.chip b {
+   color: var(--fg);
+}

@@ -1,0 +1,156 @@
+/* ---------- allocation ring ---------- */
+
+/* Categorical slots in validated order, one per holding by first purchase (domain/allocation.ts).
+   The ring is ordered by size, so neighbours can be any two slots; the palette is validated only
+   for consecutive ones, and some other pairs are hard to tell apart with color blindness. The
+   2px gap between segments and the labelled legend carry identity where color alone doesn't. */
+:root {
+   --cat-1: #2a78d6;
+   --cat-2: #eb6834;
+   --cat-3: #1baf7a;
+   --cat-4: #eda100;
+   --cat-5: #e87ba4;
+   --cat-6: #008300;
+   --cat-other: #a3a8b0;
+}
+@media (prefers-color-scheme: dark) {
+   :root {
+      --cat-1: #3987e5;
+      --cat-2: #d95926;
+      --cat-3: #199e70;
+      --cat-4: #c98500;
+      --cat-5: #d55181;
+      --cat-6: #008300;
+      --cat-other: #5d636d;
+   }
+}
+.cat-1 {
+   --c: var(--cat-1);
+}
+.cat-2 {
+   --c: var(--cat-2);
+}
+.cat-3 {
+   --c: var(--cat-3);
+}
+.cat-4 {
+   --c: var(--cat-4);
+}
+.cat-5 {
+   --c: var(--cat-5);
+}
+.cat-6 {
+   --c: var(--cat-6);
+}
+.cat-other {
+   --c: var(--cat-other);
+}
+
+.charts {
+   display: grid;
+   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+   gap: 16px;
+}
+.charts:has(> #allocation[hidden]) {
+   grid-template-columns: minmax(0, 1fr);
+}
+.alloc {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 16px;
+}
+.alloc-ring {
+   position: relative;
+   width: 176px;
+   height: 176px;
+}
+.alloc-ring svg {
+   display: block;
+   overflow: visible;
+}
+/* The 2px surface-coloured stroke is the gap between segments, not a border. */
+.alloc-seg {
+   fill: var(--c);
+   stroke: var(--card);
+   stroke-width: 2;
+   stroke-linejoin: round;
+   cursor: default;
+   transition: opacity 0.15s;
+}
+.alloc-full {
+   fill: none;
+   stroke: var(--c);
+}
+.alloc-seg:focus {
+   outline: none;
+}
+.alloc-seg:focus-visible {
+   stroke: var(--fg);
+}
+.alloc-seg.dim,
+.alloc-full.dim {
+   opacity: 0.35;
+}
+.alloc-center {
+   position: absolute;
+   inset: 0;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   pointer-events: none;
+   text-align: center;
+}
+.alloc-center span {
+   font-size: 12px;
+   color: var(--muted);
+}
+.alloc-center strong {
+   font-size: 20px;
+   font-weight: 650;
+   letter-spacing: -0.01em;
+}
+.alloc-legend {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   gap: 2px;
+   font-size: 13px;
+}
+.alloc-legend li {
+   display: grid;
+   grid-template-columns: 12px 1fr auto auto;
+   align-items: center;
+   gap: 10px;
+   padding: 5px 8px;
+   border-radius: 8px;
+   font-variant-numeric: tabular-nums;
+   transition:
+      opacity 0.15s,
+      background 0.15s;
+}
+.alloc-legend li:hover {
+   background: var(--hover);
+}
+.alloc-legend li.dim {
+   opacity: 0.45;
+}
+.alloc-legend .muted {
+   min-width: 64px;
+   text-align: right;
+}
+.alloc-label {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+.swatch {
+   width: 12px;
+   height: 12px;
+   border-radius: 3px;
+   background: var(--c);
+}

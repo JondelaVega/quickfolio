@@ -1,0 +1,122 @@
+/* ============ 2. Terminal — trading desk ============ */
+
+html[data-theme='terminal'] {
+   --plane: #000000;
+   --card: #0b0b0b;
+   --fg: #e8e8e8;
+   --fg-2: #c8c8c8;
+   --muted: #8a8a8a;
+   --line: #262626;
+   --line-strong: #3a3a3a;
+   --hover: #161616;
+   --accent: #ffb000;
+   --accent-fg: #000000;
+   --accent-soft: rgba(255, 176, 0, 0.14);
+   --pos: #3ddc84;
+   --pos-soft: rgba(61, 220, 132, 0.12);
+   --neg: #ff5555;
+   --neg-soft: rgba(255, 85, 85, 0.12);
+   --warn: #ffb000;
+   --warn-soft: rgba(255, 176, 0, 0.1);
+   --shadow: none;
+   --series-value: #c98300;
+   --series-cost: #4b8fe0;
+   --radius: 0;
+   font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+   font-size: 13px;
+}
+html[data-theme='terminal'] * {
+   border-radius: 0 !important;
+}
+html[data-theme='terminal'] main {
+   gap: 10px;
+   padding-top: 14px;
+}
+html[data-theme='terminal'] .card,
+html[data-theme='terminal'] .tile {
+   padding: 12px 14px;
+}
+html[data-theme='terminal'] h2,
+html[data-theme='terminal'] .tile-label,
+html[data-theme='terminal'] th,
+html[data-theme='terminal'] .chip-label {
+   text-transform: uppercase;
+   letter-spacing: 0.1em;
+   font-size: 11px;
+   color: var(--accent);
+}
+html[data-theme='terminal'] .hero-value {
+   color: var(--accent);
+   font-weight: 700;
+   font-size: 36px;
+   letter-spacing: -0.03em;
+}
+html[data-theme='terminal'] .tile-value {
+   font-weight: 700;
+   font-size: 22px;
+}
+html[data-theme='terminal'] .brand {
+   color: var(--accent);
+   text-transform: uppercase;
+   letter-spacing: 0.2em;
+   font-size: 14px;
+}
+html[data-theme='terminal'] .brand-mark {
+   background: var(--accent);
+   width: 10px;
+   height: 18px;
+   animation: blink 1.1s steps(1) infinite;
+}
+@keyframes blink {
+   50% {
+      opacity: 0;
+   }
+}
+html[data-theme='terminal'] th,
+html[data-theme='terminal'] td {
+   padding: 7px 8px;
+}
+html[data-theme='terminal'] tbody tr:nth-child(even) td {
+   background: #070707;
+}
+html[data-theme='terminal'] .mono {
+   background: transparent;
+   border: 1px solid var(--accent);
+   color: var(--accent);
+}
+html[data-theme='terminal'] .pill.pos {
+   background: var(--pos);
+   color: #000;
+}
+html[data-theme='terminal'] .pill.neg {
+   background: var(--neg);
+   color: #000;
+}
+html[data-theme='terminal'] .topbar {
+   background: #000;
+   border-bottom: 1px solid var(--accent);
+}
+
+/* Monospace digits are wide: tighter table so all ten columns fit the card. */
+html[data-theme='terminal'] .table-wrap {
+   margin: 0 -14px;
+   padding: 0 14px;
+}
+html[data-theme='terminal'] table {
+   font-size: 12px;
+}
+html[data-theme='terminal'] th,
+html[data-theme='terminal'] td {
+   padding: 6px 5px;
+}
+html[data-theme='terminal'] td .sub-line {
+   font-size: 11px;
+}
+
+@media (max-width: 520px) {
+   /* Wide logo type (letter-spaced mono) would push the top-bar controls off a 360px screen. */
+   html[data-theme='terminal'] .brand {
+      letter-spacing: 0.04em;
+      font-size: 13px;
+   }
+}
