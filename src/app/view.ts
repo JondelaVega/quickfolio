@@ -93,7 +93,9 @@ function taxEstimate({ portfolio, market }: AppState, full: Summary): TaxEstimat
       }
    }
 
-   return estimateSpainTax(gains, dividends, eur.pl, new Date().getFullYear());
+   const paid = Object.fromEntries(Object.entries(portfolio.taxPaid ?? {}).map(([year, amount]) => [Number(year), amount]));
+
+   return estimateSpainTax(gains, dividends, eur.pl, new Date().getFullYear(), paid);
 }
 
 /** Today's USD per 1 EUR, if the rate is known. */

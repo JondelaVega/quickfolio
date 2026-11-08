@@ -119,6 +119,7 @@ Under **Tax estimate** in the ◐ menu, pick **Spain** to add an **After tax** c
 - **Each year** lists the net result of the year's sales and the gross dividends, the tax on them, and what was kept.
 - **Sell all today** adds today's unrealized result to this year's and shows the extra tax it would cost.
 - **The totals** split what you already took out (sales and dividends after tax) from what is still on paper after tax.
+- **Tax paid, as filed.** Once a year's return is filed, enter the savings tax it charged on these stocks in the **Tax paid, as filed** panel under Trades & cash. It replaces that year's estimate, the card marks it "filed" next to the estimate, and it is saved with your trades and kept in the export. An empty amount removes it. If the return's savings base also held other income, such as crypto, enter the stocks' share: their part of the base times the tax.
 
 It is an estimate:
 - **Brackets.** It uses each year's savings brackets, from 19% to 30%, as if these were your only savings income. Bank interest, funds or crypto sold in the same year are taxed in the same base and reach higher brackets.

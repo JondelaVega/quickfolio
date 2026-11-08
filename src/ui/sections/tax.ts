@@ -1,4 +1,5 @@
 import { share, tone } from '../format';
+import { sub } from './common';
 import type { RenderContext } from './context';
 
 const EUR = 'EUR';
@@ -26,11 +27,13 @@ export function renderTax(section: HTMLElement, { tax, fmt }: RenderContext): vo
         <td class="${tone(y.gains)}">${amount(y.gains)}</td>
         <td>${amount(y.dividends)}</td>
         <td>${y.carriedIn ? money(y.carriedIn, EUR) : '—'}</td>
-        <td>${money(y.tax, EUR)}</td>
-        <td>${rate(y.tax, y.base)}</td>
+        <td>${money(y.tax, EUR)}${sub(y.paid === undefined ? 'est.' : `filed · est. ${money(y.estimate, EUR)}`)}</td>
+        <td>${rate(y.tax, y.paid === undefined ? y.base : y.gains + y.dividends)}</td>
         <td class="${tone(y.kept)}"><b>${signedMoney(y.kept, EUR)}</b></td>
       </tr>`,
    );
+   const filedYears = tax.years.filter((y) => y.paid !== undefined).length;
+   const filed = filedYears === 0 ? 'estimate' : `${filedYears} of ${tax.years.length} years as filed, the rest estimated`;
    const sold = tax.ifSoldToday;
    const takenOut = tax.total.kept - sold.kept;
    const tile = (label: string, v: number, note: string) =>
@@ -39,7 +42,7 @@ export function renderTax(section: HTMLElement, { tax, fmt }: RenderContext): vo
    const lossesLeft = tax.lossesLeft > 0.5 ? ` Losses still to set off: ${money(tax.lossesLeft, EUR)}.` : '';
 
    section.innerHTML = `
-    <div class="card-header"><h2>After tax</h2><span class="muted">Spain, savings income (IRPF) · estimate in EUR</span></div>
+    <div class="card-header"><h2>After tax</h2><span class="muted">Spain, savings income (IRPF) · in EUR · ${filed}</span></div>
     <div class="chips tax-totals">
       ${tile('Made so far', takenOut, 'sales and dividends, after tax')}
       ${tile('If sold today', sold.kept, `unrealized ${signedMoney(sold.gains, EUR, 0)}, after tax`)}

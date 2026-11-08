@@ -125,6 +125,7 @@ const storedPortfolio = (page: Page) =>
    JSON.parse(page.storage.getItem(KEYS.portfolio)!) as {
       trades: { id: string; quantity: number }[];
       cash: Record<string, number>;
+      taxPaid?: Record<string, number>;
    };
 
 /** Each holding as [symbol, shares], in table order; cash is left out. */
@@ -355,11 +356,34 @@ describe('the tax estimate', () => {
    it('is in EUR whatever the reporting currency, and hidden for a single stock', async () => {
       const page = await open({ storage: { [KEYS.portfolio]: SAMPLE, [KEYS.tax]: 'ES', [KEYS.reporting]: 'USD' } });
 
-      expect(page.text('#tax')).toContain('estimate in EUR');
+      expect(page.text('#tax')).toContain('in EUR · estimate');
       expect(page.text('#tax')).not.toContain('$');
 
       await page.click('#holdings [data-focus="AAPL"]');
       expect(page.$('#tax').hidden).toBe(true);
+   });
+
+   it('takes the tax paid as filed for a year, keeps it in the export, and removes it again', async () => {
+      const page = await open({ storage: { [KEYS.portfolio]: SAMPLE, [KEYS.tax]: 'ES' } });
+      const row2024 = () => page.$$('#tax tbody tr').find((r) => r.querySelector('td')!.textContent.trim() === '2024')!;
+
+      expect(page.$('#tax-form').hidden).toBe(false);
+      expect(row2024().textContent).toContain('est.');
+
+      await page.fill('#tax-form', { year: '2024', taxPaid: '123.45' });
+      await page.submit('#tax-form');
+
+      expect(row2024().textContent).toContain('€123.45');
+      expect(row2024().textContent).toContain('filed');
+      expect(storedPortfolio(page).taxPaid).toEqual({ 2024: 123.45 });
+
+      await page.click('#export');
+      expect(JSON.parse(page.downloads[0]!.text)).toMatchObject({ version: 3, taxPaid: { 2024: 123.45 } });
+
+      await page.fill('#tax-form', { year: '2024', taxPaid: '' });
+      await page.submit('#tax-form');
+      expect(row2024().textContent).toContain('est.');
+      expect(storedPortfolio(page)).not.toHaveProperty('taxPaid');
    });
 
    it('goes away when switched off', async () => {

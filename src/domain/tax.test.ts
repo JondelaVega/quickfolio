@@ -55,6 +55,22 @@ describe('estimateSpainTax', () => {
       expect(e.total.kept).toBeCloseTo(5_000 - 950 + 10_000 - 2_080);
    });
 
+   it('uses the tax paid as filed in place of the estimate, keeping the estimate to compare', () => {
+      // A return's savings base can hold more than this portfolio: what was filed wins.
+      const e = estimateSpainTax({ 2024: 10_000, 2025: 2_000 }, {}, 0, 2026, { 2024: 2_300, 2023: 0 });
+      const y2024 = e.years.find((y) => y.year === 2024)!;
+
+      expect(y2024).toMatchObject({ paid: 2_300, tax: 2_300, kept: 7_700 });
+      expect(y2024.estimate).toBeCloseTo(1_980);
+      const y2025 = e.years.find((y) => y.year === 2025)!;
+
+      expect(y2025.paid).toBeUndefined();
+      expect(y2025.tax).toBeCloseTo(380);
+      // A year filed with nothing from the portfolio still shows, so the entry can be seen and removed.
+      expect(e.years.find((y) => y.year === 2023)).toMatchObject({ gains: 0, paid: 0 });
+      expect(e.total.tax).toBeCloseTo(2_300 + 380);
+   });
+
    it('counts an unrealized loss as tax saved against this year', () => {
       const e = estimateSpainTax({ 2026: 5_000 }, {}, -2_000, 2026);
 

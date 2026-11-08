@@ -93,6 +93,11 @@ export interface TaxYear {
    carriedIn: number;
    /** What was taxed after setting losses off. */
    base: number;
+   /** The tax these rules give. */
+   estimate: number;
+   /** The tax paid as filed, when it was entered. */
+   paid?: number;
+   /** `paid` when known, else `estimate`. */
    tax: number;
    /** What was left after tax: gains plus dividends less tax. */
    kept: number;
@@ -154,9 +159,10 @@ function taxYear(year: number, gains: number, dividends: number, carried: Carrie
    }
 
    const base = gainsBase + Math.max(dividendBase, 0);
-   const tax = spainSavingsTax(year, base);
+   const estimate = spainSavingsTax(year, base);
+   const kept = gains + dividends - estimate;
 
-   return [{ year, gains, dividends, carriedIn, base, tax, kept: gains + dividends - tax }, pending.filter((l) => l.amount > 0.005)];
+   return [{ year, gains, dividends, carriedIn, base, estimate, tax: estimate, kept }, pending.filter((l) => l.amount > 0.005)];
 }
 
 /**
@@ -169,14 +175,17 @@ function taxYear(year: number, gains: number, dividends: number, carried: Carrie
  *   - dividends: Gross dividends per calendar year, EUR.
  *   - unrealized: Today's unrealized result of the holdings, EUR.
  *   - thisYear: The current year, taxed with `unrealized` added for the "if sold today" figure.
+ *   - paid: Tax paid per year as filed, EUR; it replaces that year's estimate. Losses carried between years
+ *     still follow the rules, since a return doesn't say which of its losses came from this portfolio.
  */
 export function estimateSpainTax(
    gains: Record<number, number>,
    dividends: Record<number, number>,
    unrealized: number,
    thisYear: number,
+   paid: Record<number, number> = {},
 ): TaxEstimate {
-   const known = [...Object.keys(gains), ...Object.keys(dividends)].map(Number);
+   const known = [...Object.keys(gains), ...Object.keys(dividends), ...Object.keys(paid)].map(Number);
    const first = Math.min(thisYear, ...known);
    const years: TaxYear[] = [];
    let carried: CarriedLoss[] = [];
@@ -187,8 +196,13 @@ export function estimateSpainTax(
       const [y, out] = taxYear(year, gains[year] ?? 0, dividends[year] ?? 0, carried);
 
       carried = out;
+      const filed = paid[year];
 
-      if (y.gains !== 0 || y.dividends !== 0) {
+      if (filed !== undefined) {
+         Object.assign(y, { paid: filed, tax: filed, kept: y.gains + y.dividends - filed });
+      }
+
+      if (y.gains !== 0 || y.dividends !== 0 || filed !== undefined) {
          years.push(y);
       }
    }
@@ -196,7 +210,7 @@ export function estimateSpainTax(
    // Selling today adds to this year's result; the tax it costs is the difference it makes.
    const current = years.find((y) => y.year === thisYear);
    const [withSale] = taxYear(thisYear, (gains[thisYear] ?? 0) + unrealized, dividends[thisYear] ?? 0, before);
-   const saleTax = withSale.tax - (current?.tax ?? 0);
+   const saleTax = withSale.estimate - (current?.estimate ?? 0);
    const sum = (f: (y: TaxYear) => number) => years.reduce((n, y) => n + f(y), 0);
    const ifSoldToday = { gains: unrealized, tax: saleTax, kept: unrealized - saleTax };
 
