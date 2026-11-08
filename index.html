@@ -32,6 +32,11 @@
                         <button type="button" data-layout-choice="table">Table</button>
                         <button type="button" data-layout-choice="cards">Cards</button>
                      </div>
+                     <div class="display-label" id="tax-label">Tax estimate</div>
+                     <div class="segmented" id="tax-choices" role="group" aria-labelledby="tax-label">
+                        <button type="button" data-tax-choice="">Off</button>
+                        <button type="button" data-tax-choice="ES">Spain</button>
+                     </div>
                      <label class="display-switch">
                         <input type="checkbox" id="hide-amounts" role="switch" />
                         <span>
@@ -53,6 +58,7 @@
             <section id="allocation" class="card"></section>
          </div>
          <section id="holdings" class="card"></section>
+         <section id="tax" class="card" hidden></section>
          <section id="realized" class="card" hidden></section>
 
          <details id="manage" class="card" open>

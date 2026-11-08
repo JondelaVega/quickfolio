@@ -277,6 +277,12 @@ describe('hiding amounts', () => {
       // Share counts reveal the size too, though they aren't money.
       expect(holdings(page).map(([, shares]) => shares)).toEqual(['•••', '•••', '•••']);
 
+      // The after-tax card shows only rates.
+      await page.click('[data-tax-choice="ES"]');
+      expect(page.$('#tax').hidden).toBe(false);
+      expect(visibleAmounts(page)).toEqual([]);
+      expect(page.text('#tax')).toMatch(/\d+\.\d%/);
+
       await page.click('#holdings [data-focus="NOKIA.HE"]');
       expect(visibleAmounts(page)).toEqual([]);
 
@@ -321,6 +327,47 @@ describe('the display menu', () => {
       menu.open = true;
       await page.click('#summary');
       expect(menu.open).toBe(false);
+   });
+});
+
+describe('the tax estimate', () => {
+   it('is off until chosen, then shows each year after Spanish tax and remembers the choice', async () => {
+      const page = await open();
+
+      expect(page.$('#tax').hidden).toBe(true);
+      await page.click('[data-tax-choice="ES"]');
+
+      expect(page.$('[data-tax-choice="ES"]').getAttribute('aria-pressed')).toBe('true');
+      expect(page.storage.getItem(KEYS.tax)).toBe('ES');
+      const rows = page.$$('#tax tbody tr').map((row) => row.querySelector('td')!.textContent.trim());
+
+      // The sample sold AAPL in 2024 and MSFT in 2025; selling what is left closes the table.
+      expect(rows).toEqual(expect.arrayContaining(['2024', '2025']));
+      expect(rows.at(-1)).toBe('Sell all today');
+      expect(page.text('#tax')).toMatch(/Total [+-]€[\d,]+ after tax/);
+      expectSoundMarkup(page);
+
+      const again = await reload(page);
+
+      expect(again.$('#tax').hidden).toBe(false);
+   });
+
+   it('is in EUR whatever the reporting currency, and hidden for a single stock', async () => {
+      const page = await open({ storage: { [KEYS.portfolio]: SAMPLE, [KEYS.tax]: 'ES', [KEYS.reporting]: 'USD' } });
+
+      expect(page.text('#tax')).toContain('estimate in EUR');
+      expect(page.text('#tax')).not.toContain('$');
+
+      await page.click('#holdings [data-focus="AAPL"]');
+      expect(page.$('#tax').hidden).toBe(true);
+   });
+
+   it('goes away when switched off', async () => {
+      const page = await open({ storage: { [KEYS.portfolio]: SAMPLE, [KEYS.tax]: 'ES' } });
+
+      await page.click('[data-tax-choice=""]');
+      expect(page.$('#tax').hidden).toBe(true);
+      expect(page.storage.getItem(KEYS.tax)).toBeNull();
    });
 });
 
